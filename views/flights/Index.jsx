@@ -9,19 +9,21 @@ function Index(props) {
 
                 {props.flights.map((flight, index) =>
                     <div key={index}>
-                        <a href={`/flights/${flight._id}`}>
-                            {flight.departs < Date.now() ?
-                                <p className='redText'>Airline:{' '} {flight.airline} {' - '}
-                                    Flight Number: {flight.flightNo}{' - '}
-                                    Departs: {flight.departs.toISOString().slice(0, 16).replace('T', ' ')}
-                                </p>
-                                :
-                                <p>Airline:{' '} {flight.airline} {' - '}
-                                    Flight Number: {flight.flightNo}{' - '}
-                                    Departs: {flight.departs.toISOString().slice(0, 16).replace('T', ' ')}
-                                </p>
-                            }
-                        </a>
+                        {/* <a href={`/flights/${flight._id}`}> */}
+                        {flight.departs < Date.now() ?
+                            <p className='redText'>Airline:{' '} {flight.airline} {' - '}
+                                Flight Number: {flight.flightNo}{' - '}
+                                Departs: {flight.departs.toISOString().slice(0, 16).replace('T', ' ')}{' -----> '}
+                                <a href={`/flights/${flight._id}`}>details..</a>
+                            </p>
+                            :
+                            <p>Airline:{' '} {flight.airline} {' - '}
+                                Flight Number: {flight.flightNo}{' - '}
+                                Departs: {flight.departs.toISOString().slice(0, 16).replace('T', ' ')}{' -----> '}
+                                <a href={`/flights/${flight._id}`}>details..</a>
+                            </p>
+                        }
+                        {/* </a> */}
                     </div>
                 )}
 

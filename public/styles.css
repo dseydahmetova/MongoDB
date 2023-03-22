@@ -28,7 +28,10 @@ ul {
     font-weight: bold;
     background: white;
   }
-  #new-post {
+  .Select-option.is-selected { display: none; }
+
+  
+  /* #new-post {
     display: grid;
     grid-template: 1fr 1fr 2fr / 2fr 1fr;
   }
@@ -46,7 +49,7 @@ ul {
     height: 100%;
     grid-column: 1 / span 2;
     grid-row: 2 / span 2;
-  }
+  } */
   
   textarea {
     width: 100%;

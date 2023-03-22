@@ -15,7 +15,7 @@ router.get('/new', flightController.new)
 // router.delete('/:id', flighttController.delete)
 
 // // update
-// router.put('/:id', flighttController.update)
+// router.put('/:id', flightController.update)
 
 //create
 router.post('/', flightController.create)
@@ -23,15 +23,15 @@ router.post('/', flightController.create)
 // // edit 
 // router.get('/:id/edit', flightController.edit)
 
-// show
-// router.get('/:id', flightController.show)
+//show
+router.get('/:id', flightController.show)
 
 
 
 
-// EXTRA ROUTES (for comments)
+// EXTRA ROUTES (for destinations)
 
-// router.post('/:id/comments', postControl.createComment)
+router.post('/:id', flightController.createDest)
 
 // router.delete('/:id/comments/:cid', postControl.deleteComment)
 
