@@ -1,36 +1,145 @@
-.redText{
-  color: red;
+* { 
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html{
+background-image: url('./images/bcg.jpg');
+background-repeat: no-repeat;
+background-size: 100% 100%;  
+width: 100%; 
+height: 100%;  
+}
+
+body{
+  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: 24px;
+}
+
+nav{
+  background-color: rgb(200, 90, 12);
+ display: flex;
+ justify-content: space-between;
+ flex-wrap: wrap;
+}
+
+nav a{
+  font-size: 26px;
+  color: white;
+  text-decoration: none;
+  list-style: none;
+  text-transform: uppercase;
+}
+
+nav li{
+  display: inline-block;
+  list-style: none;
+  margin-right: 50px;
 }
 
 ul {
     position: relative;
-    border: 1px solid black;
     list-style: none;
     padding: 20px;
   }
+
   li {
     display: flex;
   }
+  
   form {
     display: flex;
     flex-direction: column;
     padding: 50px;
   }
-  input, select {
-    margin: 20px;
-    width: 200px;
-    height: 30px;
+label{
+  font-weight: bold;
+}
+input, select {
+    width: 250px;
+    height: 50px;
+    font-size: 18px;
+    margin: 0 30px 30px 90px;
   }
+
+  .numInput {
+   margin-left: 80px;
+  }
+
   button {
-    margin-top: 50px;
     width: 100px;
     padding: 10px;
     font-weight: bold;
-    background: white;
+    background: #106fe3;
+    color: white;
+   margin-right: 20px;
   }
-  .Select-option.is-selected { display: none; }
 
+  .group-btn{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding:0
+  }
+
+  form.flex-box{
+    display:flex;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+
+h1, h3{
+  text-align: center;
+  margin-top: 50px;
+}
+
+  .redText{
+    color: rgb(173, 9, 9);
+    font-weight: bold;
+    background-color: #e9d3d3;
+  }
+  #flight-detail{
+padding: 0 50px;
+  }
+
+  #flights{
+    padding: 50px;
+  }
+
+  .dest-table{
+    width: 100%;
+    margin-top: 30px;
+    background-color: #e9d3d3;
+  }
+
+  .flight-table{
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  .flight-table td, .flight-table th,  .dest-table td,  .dest-table th{
+    border: 1px solid #767574;
+    padding: 8px;
+  }
   
+  .flight-table tr:hover {background-color: #fdf9f9;} 
+  
+  .flight-table th,  .dest-table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #3868d1;
+    color: white;
+  }
+  details{
+    margin-top: 30px;
+  }
+.dest-form{
+  margin:0;
+  padding: 0
+}
+
   /* #new-post {
     display: grid;
     grid-template: 1fr 1fr 2fr / 2fr 1fr;

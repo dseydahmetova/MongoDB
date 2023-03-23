@@ -11,17 +11,17 @@ router.get('/', flightController.index)
 // new
 router.get('/new', flightController.new)
 
-// delete
-// router.delete('/:id', flighttController.delete)
+delete
+router.delete('/:id', flightController.delete)
 
-// // update
-// router.put('/:id', flightController.update)
+// update
+router.put('/:id', flightController.update)
 
 //create
 router.post('/', flightController.create)
 
-// // edit 
-// router.get('/:id/edit', flightController.edit)
+// edit 
+router.get('/:id/edit', flightController.edit)
 
 //show
 router.get('/:id', flightController.show)
@@ -33,11 +33,10 @@ router.get('/:id', flightController.show)
 
 router.post('/:id', flightController.createDest)
 
-// router.delete('/:id/comments/:cid', postControl.deleteComment)
+router.delete('/:id/dest/:destId', flightController.deleteDest)
 
 // router.get('/:id/comments', postControl.indexComment)
 
-// router.get('/:id/comments/:cid', postControl.showComment)
 
 // router.put('/:id/comments/:cid', postControl.updateComment)
 
