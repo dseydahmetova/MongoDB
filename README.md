@@ -1,21 +1,21 @@
-# MongoDose Flight
+# Mongoose Flight
 
 ## Part 1:
-Create a new folder for this lab called `mongoose-flights`
-Create your `package.json` and `server.js`
-Create all your basic folders to get started; just as we've done with every express projects ... i.e. `models`, `routes`, `controllers`, and `views`-- prepare to create additional files (modules) inside of these folders
-Create a config/database.js module inside your project that connects to a database named `flights`-- Be sure to require the module in server.js
-Create a `Flight` Model with the following properties:
+1. Create a new folder for this lab called `mongoose-flights`
+2. Create your `package.json` and `server.js`
+3. Create all your basic folders to get started; just as we've done with every express projects ... i.e. `models`, `routes`, `controllers`, and `views`-- prepare to create additional files (modules) inside of these folders
+4. Create a config/database.js module inside your project that connects to a database named `flights`-- Be sure to require the module in server.js
+5. Create a `Flight` Model with the following properties:
 
 
-
+```
 Property	Type	       Validations	             Default Value
 `airline`	`String`	`enum` to include 'American', 'Southwest' & 'United'	n/a
 `flightNo`	`Number`	                                 Required
            Between `10` and `9999`	                       n/a
 `departs`	`Date`	               n/a	        One year from date created
 
-
+```
 
 6. Implement the following User Stories ("As A User" == AAU):
 
@@ -42,7 +42,7 @@ This in-memory flight doc would have the default departure date set properly bas
 
 
 ```
-    const newFlight = new Flight();
+        const newFlight = new Flight();
 	// Obtain the default date
 	const dt = newFlight.departs;
 	// Format the date for the value attribute of the input
@@ -68,38 +68,30 @@ Styling is secondary, spend time on it only after the functionality has been imp
 
 1. Create a `destinationSchema` that will provide the structure for destination subdocuments with the following properties:
 
- 
-
- 
-
+```
 Property	Type	Validations	Default Value
 `airport`	`String`	`enum` to include
 'AUS', 'DAL', 'LAX', 'SAN' & 'SEA'	n/a
 `arrival`	`Date`	n/a	n/a
- 
+ ```
 
- 
 
 2. Add the following two additional properties to the `Flight` Model:
 
- 
-
- 
-
+```
 Property	Type	Validations	Default Value
 `airport`	`String`	`enum` to include
 'AUS', 'DAL', 'LAX', 'SAN' & 'SEA'	'SAN'
 `destinations`	`[destinationSchema]`	n/a	n/a
- 
+ ```
 
 3. Modify the form for inputting a flight to add a <select name="airport"> element to include a value for the new flight document's `airport` property. Ensure that there are <option>elements for the four allowable airport codes ('AUS', 'DAL', etc.).
 4. Implement the following User Story:
-AAU, when viewing the list of flights, I want to click on a "detail" link displayed next to each flight to view all of the properties for that flight ```(`show` view)
+AAU, when viewing the list of flights, I want to click on a "detail" link displayed next to each flight to view all of the properties for that flight (show view)
 5. Implement the following User Story:
 * AAU, when viewing the details page (showview) for a flight, I want to be able to add a destination for that flight, including its arrivaldate/time & one of the established airport codes
 6. Implement the following User Story:
 AAU, when viewing the details page (showview) for a flight, I want to see a list of that flight's destinations(airport& arrival)
-
 
 
 ## Part 4:
