@@ -1,9 +1,12 @@
 const Flight = require('../models/FlightModel')
-const mongoose = require('mongoose')
 
 module.exports.index = async (req, res) => {
-  const flightsData = await Flight.find().sort({ departs: 1 })
-  res.render('flights/Index', { flights: flightsData })
+  try {
+    const flightsData = await Flight.find().sort({ departs: 1 })
+    res.render('flights/Index', { flights: flightsData })
+  } catch (err) {
+    res.send(err.message)
+  }
 }
 
 module.exports.new = async (req, res) => {
@@ -55,49 +58,14 @@ module.exports.delete = async (req, res) => {
 module.exports.show = async (req, res) => {
   try {
     const flight = await Flight.findById(req.params.id)
-    // .sort({"destinations.arrival": 1})
-    //       const flight = await Flight.findById(req.params.id).aggregate(
-    //       {$unwind: '$destinations'},
-    //  {$sort: {'destinations.arrival': 1}},
-    // {$group: {_id: '$_id', 'destinations': {$push:
-    // '$destinations'}}},
-    // {$project: {'destinations':
-    // '$destinations'}}).;
+    const airports = ['AUS', 'DAL', 'LAX', 'SAN', 'SEA']
+    const selectedDestAirports = []
+    flight.destinations.map(dest => {
+      selectedDestAirports.push(dest.airport)
+    })
 
-
-    // const flight = await Flight.aggregate(
-    //   {
-    //     $match: {
-    //       "_id": req.params.id
-    //     }
-    //   }, {
-    //     $unwind: '$destinations'
-    //     }, {
-    //       $sort: {'destinations.arrival': 1 }
-    //     }
-    //   )
-
-    // const flight = await Flight.aggregate([
-    // {
-    //   $match: {
-    //     "_id": req.params.id
-    //   }
-    // }, 
-    // {
-    //   $set: {
-    //     destinations: {
-    //       $sortArray:{
-    //         input: '$destinations',
-    //         sortBy: {arrival: 1}
-    //       }
-    //     }
-    //   }
-    //   }
-    // ])
-
-
-    // console.log(flight)
-    res.render('flights/Show', { flight })
+    const selectOptions = airports.filter(item => !selectedDestAirports.includes(item))
+    res.render('flights/Show', { flight, selectOptions })
   } catch (err) {
     res.send(err.message)
   }
@@ -107,23 +75,56 @@ module.exports.show = async (req, res) => {
 // EXTRA LOGIC (for destinations)
 
 module.exports.createDest = async (req, res) => {
-  await Flight.findByIdAndUpdate(req.params.id, {
-    $push: {
-      destinations: req.body
-    }
-  })
-  res.redirect(`/flights/${req.params.id}`)
+  try {
+    await Flight.findByIdAndUpdate(req.params.id, {
+      $push: {
+        destinations: req.body
+      }
+    })
+    res.redirect(`/flights/${req.params.id}`)
+  } catch (err) {
+    res.send(err.message)
+  }
 }
 
 
 module.exports.deleteDest = async (req, res) => {
-  await Flight.findByIdAndUpdate(req.params.id, {
-    $pull: {
-      destinations: {
-        _id: req.params.destId
+  try {
+    await Flight.findByIdAndUpdate(req.params.id, {
+      $pull: {
+        destinations: {
+          _id: req.params.destId
+        }
       }
-    }
-  })
-  res.redirect(`/flights/${req.params.id}`)
+    })
+    res.redirect(`/flights/${req.params.id}`)
+  } catch (err) {
+    res.send(err.message)
+  }
 }
 
+
+module.exports.editDest = async (req, res) => {
+  try {
+    const flight = await Flight.findById(req.params.id)
+    const airports = ['AUS', 'DAL', 'LAX', 'SAN', 'SEA']
+    const [destination] = flight.destinations.filter(dest => dest._id.toString() === req.params.destId)
+    res.render('destinations/Edit', { flightId: req.params.id, destination, airports })
+  } catch (err) {
+    res.send(err.message)
+  }
+}
+
+module.exports.updateDest = async (req, res) => {
+  try {
+    await Flight.updateOne({ _id: req.params.id, 'destinations._id': req.params.destId }, {
+      $set: {
+        'destinations.$.airport': req.body.airport,
+        'destinations.$.arrival': req.body.arrival
+      }
+    })
+    res.redirect(`/flights/${req.params.id}`)
+  } catch (err) {
+    res.send(err.message)
+  }
+}

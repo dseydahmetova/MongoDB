@@ -11,7 +11,7 @@ router.get('/', flightController.index)
 // new
 router.get('/new', flightController.new)
 
-delete
+//delete
 router.delete('/:id', flightController.delete)
 
 // update
@@ -35,10 +35,9 @@ router.post('/:id', flightController.createDest)
 
 router.delete('/:id/dest/:destId', flightController.deleteDest)
 
-// router.get('/:id/comments', postControl.indexComment)
+router.put('/:id/dest/:destId', flightController.updateDest)
 
-
-// router.put('/:id/comments/:cid', postControl.updateComment)
+router.get('/:id/dest/:destId', flightController.editDest)
 
 
 module.exports = router

@@ -1,32 +1,8 @@
 import React from 'react'
-import { useState } from 'react'
 import DefaultLayout from '../layouts/DefaultLayout'
 
 function Show(props) {
-    props.flight.destinations.sort((a,b) => a.arrival-b.arrival)
-    const [selectedItems, setItem] = useState('')
-    const airports = ['AUS', 'DAL', 'LAX', 'SAN', 'SEA']
-
-    // function handleSelectItem(e) {
-    // const selectedOptions = [...e.taraget.value]
-    // console.log("this is hhh" + e.trget.defaultValue)
-    // const updatedArr = [...selectedItems, e.target.defaultValue]
-    // const updatedArr = e.target.value
-    // console.log(updatedArr)
-    // setSelectedItems(updatedArr)
-    // }
-
-
-    const handleChange = (e) => {
-        console.log("Fruit Selected!!");
-    }
-
-
-    const postedList = ["AUS", "DAL"];
-
-    const filteredList = airports.filter(item => !selectedItems.includes(item));
-
-    console.log("this is " + selectedItems)
+    props.flight.destinations.sort((a, b) => a.arrival - b.arrival)
 
     return (
         <DefaultLayout>
@@ -52,14 +28,12 @@ function Show(props) {
                                     <th>Airport</th>
                                     <th>Flight №</th>
                                     <th>Departs</th>
-                                    <th>Details</th>
                                 </tr>
                                 <tr className='redText'>
                                     <td>{props.flight.airline}</td>
                                     <td>{props.flight.airport}</td>
                                     <td>{props.flight.flightNo}</td>
                                     <td>{props.flight.departs.toISOString().slice(0, 16).replace('T', ' ')}</td>
-                                    <td>{props.flight.airport}</td>
                                 </tr>
                             </table>
                             {props.flight.destinations.length ?
@@ -76,12 +50,12 @@ function Show(props) {
                                                 <td>{dest.airport}</td>
                                                 <td>{dest.arrival.toISOString().slice(0, 16).replace('T', ' ')}</td>
                                                 <td className='group-btn'>
-                                                <a href={`/flights/${props.flight._id}/dest/${dest._id}`}> <button>Edit</button> </a>
-                                              
-                                               <form className = 'dest-form' action={`/flights/${props.flight._id}/dest/${dest._id}?_method=DELETE`} method="POST">
-                                               <button>Delete</button>
-                                               </form>
-                                              
+                                                    <a href={`/flights/${props.flight._id}/dest/${dest._id}`}> <button>Edit</button> </a>
+
+                                                    <form className='dest-form' action={`/flights/${props.flight._id}/dest/${dest._id}?_method=DELETE`} method="POST">
+                                                        <button>Delete</button>
+                                                    </form>
+
                                                 </td>
                                             </tr>
                                         )}
@@ -90,46 +64,26 @@ function Show(props) {
                                 : ''
                             }
 
-
                             <details>
                                 <summary style={{ opacity: '.7' }}>Add destination</summary>
-                                <form action={`/flights/${props.flight._id}`} method="POST">
-                                    <label htmlFor="ap">Airport:
-                                        {/* <select name="airport" id="ap" onChange={handleChange}>
-                                            <option value="AUS">AUS</option>
-                                            <option value="DAL">DAL</option>
-                                            <option value="LAX" >LAX</option>
-                                            <option value="SAN">SAN</option>
-                                            <option value="SEA" >SEA</option>
-                                        </select> */}
-
-                                        <select id="ap" name="airport">
-                                            <option className="dropdown-item" value="AUS">AUS</option>
-                                            <option value="SAN">SAN</option>
-                                            <option value="SEA"> SEA</option>
-                                        </select>
-                                    </label>
-
-                                    {/* <select onChange = {handleSelectItem}>
-                                            {airports.filter(item => !selectedItems.find(aport => item))
-                                            .map(item => <option defaultValue={item}>{item}</option>)}
-                                        </select> */}
-
-                                    {/* <select name="airport" id="ap" onChange = {handleSelectItem}>
-                                        
-                                        {filteredList.map((item, index) => 
-                                                                                
-                                                <option key={index} value={item}>{item}</option>
-                                       ) }
-                                        </select> */}
-
-                                    <label htmlFor="ar">Arrival:
-                                        <input type="datetime-local" name="arrival" id="ar" min={props.flight.departs.toISOString().slice(0, 16).replace('T', ' ')} defaultValue={props.flight.departs.toISOString().slice(0, 16).replace('T', ' ')} /><br /><br />
-                                    </label>
-                                    <button>Add</button>
-                                </form>
+                                {props.selectOptions.length ?
+                                    <form action={`/flights/${props.flight._id}`} method="POST">
+                                        <label htmlFor="ap">Airport:
+                                            <select name="airport" id="ap" >
+                                                {props.selectOptions.map((item, index) =>
+                                                    <option key={index} value={item}>{item}</option>
+                                                )}
+                                            </select>
+                                        </label>
+                                        <label htmlFor="ar">Arrival:
+                                            <input type="datetime-local" name="arrival" id="ar" min={props.flight.departs.toISOString().slice(0, 16).replace('T', ' ')} defaultValue={props.flight.departs.toISOString().slice(0, 16).replace('T', ' ')} /><br /><br />
+                                        </label>
+                                        <button>Add</button>
+                                    </form>
+                                    :
+                                    <h4>"All destination airports have already been selected"</h4>
+                                }
                             </details>
-
                         </div>
 
                         <br /><br />
